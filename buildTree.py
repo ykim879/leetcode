@@ -4,6 +4,7 @@
 #         self.val = val
 #         self.left = left
 #         self.right = right
+
 class Solution(object):
     def buildTree(self, preorder, inorder):
         """
@@ -11,20 +12,27 @@ class Solution(object):
         :type inorder: List[int]
         :rtype: Optional[TreeNode]
         """
-        """
-        :rtype: TreeNode
-        """
+        # Create a hashmap to store indices of inorder elements
+        inorder_index_map = {val: idx for idx, val in enumerate(inorder)}
+        
         def recur(pi, pj, ii, ij):
             # base case: index out of bound
             if pi >= pj or ii >= ij:
                 return None
-            ri = ii
+            
+            # Get the root value from preorder
             cur = preorder[pi]
-            while cur != inorder[ri]: # no bound check since it always exists before it goes out of bound
-                ri += 1
+            # Find the root index in the inorder list using the hashmap
+            ri = inorder_index_map[cur]
+            
+            # Calculate the length of the left subtree
             leftlength = ri - ii
-            leftNode = recur(pi + 1, pi + 1 + leftlength, ii, ri) # if there is no leftNode/rightNode pi == pj so it will breal
+            
+            # Recursively construct the left and right subtrees
+            leftNode = recur(pi + 1, pi + 1 + leftlength, ii, ri)
             rightNode = recur(pi + 1 + leftlength, pj, ri + 1, ij)
+            
+            # Return the root node
             return TreeNode(cur, leftNode, rightNode)
-        return recur(0, len(preorder), 0, len(preorder))
         
+        return recur(0, len(preorder), 0, len(inorder))
