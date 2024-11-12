@@ -5,8 +5,8 @@ class Solution:
         # base case: dp[0][0] = True  dp[1:][0] = False dp[0][1:] = if will be false if it not having * 
         dp[0][0] = True
         for j in range(2, L2+1):
-            if p[j-1] == '*':
-                dp[0][j] = dp[0][j-2]
+            if p[j] == '*':
+                dp[0][j+1] = dp[0][j-1]
         for i in range(L1):
             for j in range(L2):
                 ## (1)star: "preceding chracter" is matching s[i] (p[j-1] == s[i] and dp[i-1][j] # consider star is already populated) or dp[i][j-2] (zero preceding element)
