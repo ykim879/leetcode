@@ -18,3 +18,18 @@ class Solution:
         while l < L:
             nums[l] = 0
             l += 1
+"""
+less intuitive but cleaner but less time complexity
+  def moveZeroes(self, nums: List[int]) -> None:
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        left, L = 0, len(nums)
+        for right in range(L):
+            if nums[right] != 0:
+                nums[left] = nums[right]
+                left += 1
+        while left < L:
+            nums[left] = 0
+            left += 1
+"""
