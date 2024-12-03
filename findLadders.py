@@ -7,7 +7,6 @@ class Solution(object):
         :rtype: List[List[str]]
         """
         wordList = set(wordList)
-        wordList.add(beginWord)
         queue = deque([beginWord])
         find = False
         parents = defaultdict(list)
